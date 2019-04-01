@@ -3,7 +3,7 @@
   "azureFunctions.projectLanguage": "TypeScript",
   "azureFunctions.templateFilter": "Verified",
   "azureFunctions.deploySubpath": ".",
-  "azureFunctions.preDeployTask": "prune",
+  "azureFunctions.preDeployTask": "npm prune",
   "files.exclude": {
     "obj": true,
     "bin": true
