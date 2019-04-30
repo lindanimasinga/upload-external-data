@@ -10,22 +10,19 @@ const jsonData = {
     },
     "externalLinks": {
       "name": {
-        "en-GB": "External links",
-        "de-DE": "Externe Links"
+        "en-GB": "External links"
       },
       "value": [
         {
           "href": {
-            "en-GB": "http://admin:meinsm@sgttdemo.ddns.net:10001",
-            "de-DE": "http://admin:meinsm@sgttdemo.ddns.net:10001"
+            "en-GB": "https://sitegaurddashcams.z21.web.core.windows.net?cam=http%3A%2F%2F41.78.221.106%3A10001"
           },
           "title": {
             "en-GB": "Live Video Stream",
             "de-DE": "In Truck Spy App öffnen"
           },
           "description": {
-            "en-GB": "By clicking you will be redirected to the Live Video Stream.",
-            "de-DE": "Dieser Link öffnet die Truck Spy Anwendung"
+            "en-GB": "By clicking you will be redirected to the Live Video Stream."
           }
         }
       ]
@@ -44,8 +41,7 @@ const jsonData = {
       [
         {
           "name": {
-            "en-GB": "Battery status",
-            "de-DE": "Batteriestatus"
+            "en-GB": "Battery status"
           },
           "value": {
             "en-GB": "95 %"
@@ -54,12 +50,10 @@ const jsonData = {
         },
         {
           "name": {
-            "en-GB": "Fuel level",
-            "de-DE": "Tankstand"
+            "en-GB": "Fuel level"
           },
           "value": {
-            "en-GB": "104.5 l",
-            "de-DE": "104,5 l"
+            "en-GB": "104.5 l"
           },
           "icon": 35
         }
@@ -67,57 +61,12 @@ const jsonData = {
       [
         {
           "name": {
-            "en-GB": "Ambient temperature",
-            "de-DE": "Umgebungstemparatur"
+            "en-GB": "Ambient temperature"
           },
           "value": {
             "en-GB": "23° C"
           },
           "icon": 7
-        },
-        {
-          "name": {
-            "en-GB": "Relative humidity",
-            "de-DE": "Relative Luftfeuchtigkeit"
-          },
-          "icon": 27
-        }
-      ],
-      [
-        {
-          "name": {
-            "en-GB": "Cab door left",
-            "de-DE": "Führerhaustür links"
-          },
-          "value": {
-            "en-GB": "open",
-            "de-DE": "geöffnet"
-          },
-          "icon": 4
-        },
-        {
-          "name": {
-            "en-GB": "Cab door right",
-            "de-DE": "Führerhaustür rechts"
-          },
-          "value": {
-            "en-GB": "closed",
-            "de-DE": "geschlossen"
-          },
-          "icon": 23
-        }
-      ],
-      [
-        {
-          "name": {
-            "en-GB": "Trailer door 1",
-            "de-DE": "Anhänger Tür 1"
-          },
-          "value": {
-            "en-GB": "locked",
-            "de-DE": "verschlossen"
-          },
-          "icon": 23
         }
       ]
     ]
@@ -127,7 +76,7 @@ const jsonData = {
 
  function prepareURL(): string {
 
-    var data = encodeURI(JSON.stringify(jsonData))
+    var jsonDataString = encodeURI(JSON.stringify(jsonData))
     var apikey = "d1fa7e14-4bf9-48a0-a193-bcabd0d58e00"
     var action = "setExternalObjectData"
     var outputformat = "json"
@@ -137,25 +86,27 @@ const jsonData = {
     var account = "chickens-cc"
     var lang = "en"
 
-    return `${url}?${lang}&${account}&${username}&${password}&${objectuid}&${outputformat}&${action}&${apikey}&${data}`
+    return `${url}?lang=${lang}&account=${account}&username=${username}&password=${password}&objectuid=${objectuid}&
+                outputformat=${outputformat}&action=${action}&apikey=${apikey}&data=${jsonDataString}`
  }
 
 const timerTrigger: AzureFunction = async function (context: Context, myTimer: any): Promise<void> {
     var timeStamp = new Date().toISOString();
     
-    if(myTimer.isPastDue)
-    {
-        context.log('Timer function is running late!');
-    }
     context.log('Timer trigger function ran!', timeStamp);
+    var requestUrl = prepareURL()
+    console.log(`Url is ${requestUrl}`)
 
-    https.get(prepareURL(), resp => {
-        if(resp.statusCode){
-            console.log("successful")
+    https.get(requestUrl, resp => {
+        console.log(`response recieved with statusCode ${resp.statusCode}`);
+        if(resp.statusCode == 200){
+            console.log("successfully uploaded the data to telematics dashboard");
         } else {
-            console.log("failed")
+            console.log("failed to load the data to telematics dashboard");
         }
+        console.log(`response body ${resp}`);
     })
 };
 
 export default timerTrigger;
+ 
