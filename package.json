@@ -11,7 +11,9 @@
     "build:production": "npm run prestart && npm prune --production",
     "test": "echo \"No tests yet...\""
   },
-  "dependencies": {},
+  "dependencies": {
+    "sync-request": "^6.1.0"
+  },
   "devDependencies": {
     "@azure/functions": "^1.0.1-beta2",
     "@types/node": "^11.13.0",
