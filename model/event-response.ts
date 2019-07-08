@@ -1,6 +1,6 @@
 import { Eventlist } from "./eventlist";
 import { Backlink } from "./backlink.ts";
-import { Seqinfo } from "./Seqinfo";
+import { Seqinfo } from "./seqinfo";
 
 export interface EventsResponse {
     alarmimage: string;

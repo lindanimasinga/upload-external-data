@@ -106,6 +106,22 @@ const jsonData = {
               outputformat=${outputformat}&action=${action}&apikey=${apikey}&data=${jsonDataString}`
 }
 
+function prepareURLCar3(): string {
+
+  var jsonDataString = encodeURI(JSON.stringify(jsonData))
+  var apikey = "d1fa7e14-4bf9-48a0-a193-bcabd0d58e00"
+  var action = "setExternalObjectData"
+  var outputformat = "json"
+  var objectuid = "1-390874-721067AAF8"
+  var password = "Siteguard2016"
+  var username = "Calie"
+  var account = "management-694"
+  var lang = "en"
+
+  return `${url}?lang=${lang}&account=${account}&username=${username}&password=${password}&objectuid=${objectuid}&
+              outputformat=${outputformat}&action=${action}&apikey=${apikey}&data=${jsonDataString}`
+}
+
 const timerTrigger: AzureFunction = async function (context: Context, myTimer: any): Promise<void> {
     var timeStamp = new Date().toISOString();
     
@@ -125,6 +141,20 @@ const timerTrigger: AzureFunction = async function (context: Context, myTimer: a
 
     context.log('Timer trigger function ran!', timeStamp);
     var requestUrl = prepareURLCar2()
+    console.log(`Url is ${requestUrl}`)
+
+    https.get(requestUrl, resp => {
+        console.log(`response recieved with statusCode ${resp.statusCode}`);
+        if(resp.statusCode == 200){
+            console.log("successfully uploaded the data to telematics dashboard");
+        } else {
+            console.log("failed to load the data to telematics dashboard");
+        }
+        console.log(`response body ${resp}`);
+    })
+
+    context.log('Timer trigger function ran!', timeStamp);
+    var requestUrl = prepareURLCar3()
     console.log(`Url is ${requestUrl}`)
 
     https.get(requestUrl, resp => {
