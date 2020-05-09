@@ -77,13 +77,13 @@ const jsonData = {
  function prepareURLCar1(): string {
 
     var jsonDataString = encodeURI(JSON.stringify(jsonData))
-    var apikey = "d1fa7e14-4bf9-48a0-a193-bcabd0d58e00"
+    var apikey = "############"
     var action = "setExternalObjectData"
     var outputformat = "json"
     var objectuid = "1-390874-721755F439"
-    var password = "Csd0148()1"
-    var username = "Lindani"
-    var account = "chickens-cc"
+    var password = "#######"
+    var username = "#######"
+    var account = "#########"
     var lang = "en"
 
     return `${url}?lang=${lang}&account=${account}&username=${username}&password=${password}&objectuid=${objectuid}&
@@ -99,7 +99,7 @@ const jsonData = {
   var objectuid = "1-390874-6664512291"
   var password = "Ac9dsdmcpYGPfd1"
   var username = "siteguard"
-  var account = "ttt-za"
+  var account = "#########"
   var lang = "en"
 
   return `${url}?lang=${lang}&account=${account}&username=${username}&password=${password}&objectuid=${objectuid}&
@@ -109,13 +109,13 @@ const jsonData = {
 function prepareURLCar3(): string {
 
   var jsonDataString = encodeURI(JSON.stringify(jsonData))
-  var apikey = "d1fa7e14-4bf9-48a0-a193-bcabd0d58e00"
+  var apikey = "#############"
   var action = "setExternalObjectData"
   var outputformat = "json"
   var objectuid = "1-390874-721067AAF8"
-  var password = "Siteguard2016"
-  var username = "Calie"
-  var account = "management-694"
+  var password = "#########"
+  var username = "########"
+  var account = "#########"
   var lang = "en"
 
   return `${url}?lang=${lang}&account=${account}&username=${username}&password=${password}&objectuid=${objectuid}&
